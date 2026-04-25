@@ -1,319 +1,368 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sanatan Sparks — Demo</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Chapter Closing</title>
   <style>
-    :root{
-      --bg:#0f1720; /* deep charcoal */
-      --card:#0b1220;
-      --accent:#eab308; /* saffron gold */
-      --muted:#94a3b8;
-      --glass: rgba(255,255,255,0.03);
-      font-family: 'Inter',system-ui,Arial;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,var(--bg),#071127);color:#e6eef6;}
-    .wrap{max-width:1100px;margin:28px auto;padding:20px}
+    :root {
+      --bg1: #07070b;
+      --bg2: #10111a;
+      --card: rgba(255,255,255,0.06);
+      --card-2: rgba(255,255,255,0.09);
+      --text: #f4f1ec;
+      --muted: rgba(244,241,236,0.72);
+      --gold: #d8b26e;
+      --rose: #c56b7b;
+      --violet: #8b6cff;
+      --line: rgba(255,255,255,0.12);
+      --shadow: 0 25px 80px rgba(0,0,0,0.45);
+    }* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(216,178,110,0.12), transparent 30%),
+    radial-gradient(circle at 20% 20%, rgba(197,107,123,0.15), transparent 25%),
+    radial-gradient(circle at 80% 10%, rgba(139,108,255,0.12), transparent 25%),
+    linear-gradient(180deg, var(--bg1), var(--bg2));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
 
-    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
-    .brand{display:flex;align-items:center;gap:12px}
-    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#ff7a18);display:flex;align-items:center;justify-content:center;font-weight:800;color:#081023}
-    .brand h1{margin:0;font-size:18px}
-    .brand p{margin:0;font-size:12px;color:var(--muted)}
-    nav a{color:var(--muted);margin-left:12px;text-decoration:none;font-size:14px}
+.noise {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.06;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: radial-gradient(circle at center, black 55%, transparent 100%);
+}
 
-    .hero{display:grid;grid-template-columns:1fr 360px;gap:24px;margin-top:22px}
-    .card{background:var(--card);padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.6)}
-    .hero-left h2{margin:0 0 8px;font-size:26px}
-    .hero-left p{color:var(--muted);margin:0 0 14px}
-    .cta{display:flex;gap:10px}
-    .btn{background:var(--accent);border:none;padding:10px 14px;border-radius:8px;color:#081023;font-weight:700;cursor:pointer}
-    .ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 12px;border-radius:8px;color:var(--muted);cursor:pointer}
+.wrap {
+  width: min(980px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 38px 0 60px;
+  position: relative;
+  z-index: 1;
+}
 
-    .features{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:18px}
-    .feature h3{margin:0 0 6px}
-    .muted{color:var(--muted)}
+.hero {
+  padding: 40px 28px 28px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
 
-    /* Right column - AI Buddy */
-    .ai-buddy{display:flex;flex-direction:column;gap:10px}
-    .chat{height:360px;overflow:auto;padding:12px;border-radius:10px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01))}
-    .msg{padding:8px 10px;border-radius:10px;margin-bottom:8px;max-width:80%}
-    .user{background:linear-gradient(90deg,#0f3b6b, #085b9c);align-self:flex-end}
-    .bot{background:rgba(255,255,255,0.02)}
-    .input-row{display:flex;gap:8px}
-    .input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -120px -40px auto auto;
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(216,178,110,0.20), transparent 70%);
+  filter: blur(10px);
+  pointer-events: none;
+}
 
-    /* Sparks grid */
-    .sparks{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:20px}
-    .spark{background:var(--glass);padding:12px;border-radius:10px}
-    .spark h4{margin:0 0 6px}
-    .meta{font-size:12px;color:var(--muted)}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(216,178,110,0.35);
+  border-radius: 999px;
+  color: #f9e6c0;
+  background: rgba(216,178,110,0.10);
+  font-size: 0.92rem;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
 
-    /* Circuits & Events */
-    .two-col{display:grid;grid-template-columns:1fr 360px;gap:16px;margin-top:18px}
-    .list{display:flex;flex-direction:column;gap:8px}
-    .item{padding:12px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);display:flex;justify-content:space-between;align-items:center}
+.kicker .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+}
 
-    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 6vw, 4.8rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+}
 
-    /* Responsive */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr}
-      .two-col{grid-template-columns:1fr}
-      .features{grid-template-columns:repeat(2,1fr)}
-      .sparks{grid-template-columns:repeat(2,1fr)}
-    }
-    @media (max-width:520px){
-      .features{grid-template-columns:1fr}
-      .sparks{grid-template-columns:1fr}
-    }
+.subtitle {
+  margin: 16px 0 0;
+  color: var(--muted);
+  max-width: 720px;
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
 
-    /* small badges */
-    .badge{background:rgba(0,0,0,0.35);padding:4px 8px;border-radius:999px;color:var(--muted);font-size:12px}
-    .tag{background:rgba(255,255,255,0.03);padding:4px 8px;border-radius:6px;font-size:12px}
+.grid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.9fr;
+  gap: 22px;
+  margin-top: 22px;
+}
+
+.panel {
+  padding: 26px;
+  border-radius: 24px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+}
+
+.panel h2 {
+  margin: 0 0 14px;
+  font-size: 1.35rem;
+  letter-spacing: 0.2px;
+}
+
+.panel p {
+  margin: 0 0 16px;
+  color: rgba(244,241,236,0.88);
+  line-height: 1.9;
+  font-size: 1.02rem;
+}
+
+.quote {
+  border-left: 3px solid var(--gold);
+  padding: 18px 18px 18px 20px;
+  background: rgba(216,178,110,0.07);
+  border-radius: 16px;
+  margin: 18px 0;
+  color: #fff5e0;
+}
+
+.timeline {
+  display: grid;
+  gap: 14px;
+}
+
+.step {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.step strong {
+  display: block;
+  margin-bottom: 6px;
+  color: #ffe6be;
+}
+
+.closing {
+  margin-top: 22px;
+  padding: 28px;
+  border-radius: 26px;
+  border: 1px solid rgba(197,107,123,0.35);
+  background: linear-gradient(135deg, rgba(197,107,123,0.14), rgba(139,108,255,0.10), rgba(216,178,110,0.10));
+  box-shadow: var(--shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.closing::after {
+  content: "";
+  position: absolute;
+  inset: auto -80px -90px auto;
+  width: 220px;
+  height: 220px;
+  background: radial-gradient(circle, rgba(197,107,123,0.22), transparent 68%);
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+.closing h3 {
+  margin: 0 0 10px;
+  font-size: clamp(1.35rem, 3vw, 2rem);
+}
+
+.closing p {
+  margin: 0;
+  line-height: 1.9;
+  color: rgba(255,255,255,0.92);
+}
+
+.signature {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  transition: transform 0.28s ease, background 0.28s ease, color 0.28s ease, box-shadow 0.28s ease;
+  cursor: default;
+  user-select: none;
+}
+
+.signature:hover {
+  transform: translateY(-3px) scale(1.02);
+  background: linear-gradient(135deg, rgba(216,178,110,0.24), rgba(197,107,123,0.22), rgba(139,108,255,0.18));
+  color: #fff8ec;
+  box-shadow: 0 12px 34px rgba(216,178,110,0.18);
+}
+
+.footer-note {
+  margin-top: 16px;
+  color: rgba(244,241,236,0.6);
+  font-size: 0.93rem;
+}
+
+.fade-up {
+  animation: fadeUp 1s ease both;
+}
+
+.fade-up.delay-1 { animation-delay: 0.12s; }
+.fade-up.delay-2 { animation-delay: 0.24s; }
+.fade-up.delay-3 { animation-delay: 0.36s; }
+.fade-up.delay-4 { animation-delay: 0.48s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 860px) {
+  .grid { grid-template-columns: 1fr; }
+  .hero, .panel, .closing { padding-left: 20px; padding-right: 20px; }
+}
+
+@media (max-width: 540px) {
+  .wrap { width: min(100% - 20px, 980px); padding-top: 18px; }
+  h1 { font-size: 2.1rem; }
+  .subtitle { font-size: 0.98rem; }
+}
+.final-btn {
+  margin-top: 18px;
+  padding: 12px 22px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, rgba(216,178,110,0.25), rgba(197,107,123,0.25));
+  color: #fff;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.final-btn:hover {
+  transform: translateY(-3px);
+  background: linear-gradient(135deg, rgba(216,178,110,0.5), rgba(197,107,123,0.5));
+  box-shadow: 0 10px 30px rgba(216,178,110,0.2);
+}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <header>
-      <div class="brand">
-        <div class="logo">SS</div>
-        <div>
-          <h1>Sanatan Sparks</h1>
-          <p class="muted">Sanatan Se Sansaar Tak — living heritage, pocket-sized</p>
-        </div>
+  <div class="noise"></div>  <main class="wrap">
+    <section class="hero fade-up">
+      <div class="kicker"><span class="dot"></span> An emotional closing page</div>
+      <h1>When a bond stops feeling mutual.</h1>
+      <p class="subtitle">
+        This page carries the truth, the silence, the effort, and the final acceptance.
+        It is written like a closure letter — soft, honest, and unforgettable.
+      </p>
+    </section><section class="grid">
+  <article class="panel fade-up delay-1">
+    <h2>The message</h2>
+    <p>
+      I trusted you.
+    </p>
+    <p>
+      Not casually… not normally. I trusted you in a way where you slowly became a part of my life —
+      and then without realising it, you became the centre of it.
+    </p>
+    <p>
+      And maybe that is exactly where I went wrong.
+    </p>
+    <p>
+      Because while I was getting closer, I could feel you going the opposite way.
+    </p>
+    <div class="quote">
+      I noticed your texts. The dryness. The distance. The lack of effort.
+    </div>
+    <p>
+      The things I did for you — the edits, the website, the time I invested — they were never for a “thank you”.
+      They were my way of building something real.
+    </p>
+    <p>
+      But your replies, your behaviour, your consistency kept telling me one thing again and again:
+      this bond does not exist for you the way it does for me.
+    </p>
+  </article>
+
+  <aside class="panel fade-up delay-2">
+    <h2>What I felt</h2>
+    <div class="timeline">
+      <div class="step">
+        <strong>5 days of silence</strong>
+        I stopped myself again and again, fighting the urge to just talk normally.
       </div>
-      <nav>
-        <a href="#circuits">Circuits</a>
-        <a href="#sparks">Sanatan Sparks</a>
-        <a href="#live">Live</a>
-        <a href="#community">Community</a>
-      </nav>
-    </header>
-
-    <section class="hero">
-      <div class="hero-left card">
-        <h2>Make pilgrimage personal. Make heritage digital.</h2>
-        <p class="muted">Guided yatras, verified local lore, and short spiritual stories (40s) — crafted for Gen Z and anyone who wants meaning, not just pictures.</p>
-
-        <div class="features">
-          <div class="feature card">
-            <h3>AI Buddy</h3>
-            <p class="muted">Context-aware companion for circuits, rituals, and quiet reflection.</p>
-          </div>
-          <div class="feature card">
-            <h3>Sanatan Sparks</h3>
-            <p class="muted">Short, cinematic 40s videos that teach and move.</p>
-          </div>
-          <div class="feature card">
-            <h3>Verified Local Lore</h3>
-            <p class="muted">Stories from priests, historians and elders — not random internet noise.</p>
-          </div>
-        </div>
-
-        <div style="margin-top:16px" class="card">
-          <h3 style="margin:0 0 6px">Quick demo tools</h3>
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn" id="genSpark">Generate 40s Spark</button>
-            <button class="ghost" id="planYatra">Start Path of Rama</button>
-            <button class="ghost" id="downloadData">Download Demo Data</button>
-          </div>
-        </div>
+      <div class="step">
+        <strong>Deep attachment</strong>
+        This was never casual for me. I was emotionally invested in a way that was hard to hide.
       </div>
-
-      <aside class="ai-buddy card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <strong>AI Buddy</strong>
-          <span class="badge">Offline-ready</span>
-        </div>
-        <div class="chat" id="chat">
-          <div class="msg bot">Namaste. I am Sanatan Buddy. Ask me about a place, ritual, or yatra.</div>
-        </div>
-        <div class="input-row">
-          <input id="userInput" class="input" placeholder="Ask: 'Tell me about Omkareshwar'" />
-          <button class="btn" id="sendBtn">Ask</button>
-        </div>
-      </aside>
-    </section>
-
-    <section id="sparks">
-      <h3 style="margin-top:18px">Sanatan Sparks (demo)</h3>
-      <div class="sparks" id="sparksGrid">
-        <!-- sample sparks populated by JS -->
+      <div class="step">
+        <strong>One-sided effort</strong>
+        I was the one initiating, holding, trying, and carrying the bond forward.
       </div>
-    </section>
-
-    <section class="two-col">
-      <div class="card">
-        <h3 id="circuits">Circuits</h3>
-        <p class="muted">Chronological and themed yatras — each circuit is an interactive story.</p>
-        <div class="list" id="circuitsList">
-          <!-- circuits by JS -->
-        </div>
+      <div class="step">
+        <strong>Final understanding</strong>
+        One-sided effort, no matter how pure, still ends up nowhere.
       </div>
+    </div>
+  </aside>
+</section>
 
-      <div class="card" id="live">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <strong>Live & Events</strong>
-            <div class="muted" style="font-size:12px">Next major: Dev Deepawali — Varanasi • 4 Nov</div>
-          </div>
-          <div style="text-align:right">
-            <div class="tag">VIP Passes</div>
-          </div>
-        </div>
-        <div style="margin-top:12px">
-          <div class="item"><div>Dev Deepawali — Varanasi</div><div class="muted">Plan Now</div></div>
-          <div class="item"><div>Kumbh Highlights</div><div class="muted">Watch Live</div></div>
-        </div>
-      </div>
-    </section>
+<section class="panel fade-up delay-3" style="margin-top:22px;">
+  <h2>Acceptance</h2>
+  <p>
+    You will never know how difficult these last 5 days were for me. Not texting you. Holding back.
+    Keeping myself from reaching out again and again.
+  </p>
+  <p>
+    I saw the pattern clearly: I was the one putting in effort while you kept everything limited.
+    Even when I shared things that mattered to me, your responses felt empty.
+  </p>
+  <p>
+    Maybe I gave more than what you were ever meant to receive.
+    And I know this clearly — it is going to take me time to forget this, to detach from you,
+    because what I felt was real.
+  </p>
+</section>
 
-    <section class="card" id="community" style="margin-top:16px">
-      <h3>Community (AI-regulated)</h3>
-      <p class="muted">Moderation is automated: respectful, verified voices are promoted. Try posting a short story below.</p>
-      <div style="display:flex;gap:8px;margin-top:10px">
-        <input id="postText" class="input" placeholder="Share a local story..." />
-        <button class="btn" id="postBtn">Post</button>
-      </div>
-      <div id="feed" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div>
-    </section>
+<section class="closing fade-up delay-4">
+  <h3>Now finally, our chapter is closing.</h3>
+  <p>
+    Take care, and thank you for all your memories.
+  </p>
+  <p style="margin-top:12px; opacity:0.95;">
+    <em>Singing off with this — Swayam Mishra.</em>
+  </p>
+  <div class="signature">— Swayam Mishra</div> <button class="final-btn" onclick="handleClosure()">
+  Close This Chapter
+</button>
+  <div class="footer-note">Hover over the signature to reveal the highlighted finish.</div>
+</section>
 
-    <footer>
-      Built as a demo prototype. Not production-ready. Use for planning and early investor demos only.
-    </footer>
-  </div>
-
-  <script>
-    // --- Demo data ---
-    const sampleSparks = [
-      {id:1, title:'The Sarayu Cave', place:'Ayodhya', tag:'Ram', text:'Hook: The cave where many say Ram left the world. In 40s: A brief cinematic whisper about legend, symbolism, and what pilgrims feel.'},
-      {id:2, title:'Omkareshwar Isle', place:'Omkareshwar', tag:'Shiva', text:'Hook: An island shaped like OM. 40s script that connects the geography to devotion.'},
-      {id:3, title:'Kashi Lamp Tale', place:'Varanasi', tag:'Kashi', text:'Hook: The lamp that never went out — myth, ritual, and modern meaning.'}
-    ];
-
-    const circuits = [
-      {id:'rama',name:'Path of Rama',stops:['Ayodhya','Chitrakoot','Kishkindha','Lanka','Ayodhya']},
-      {id:'krishna',name:'Path of Krishna',stops:['Mathura','Gokul','Vrindavan','Dwarka']},
-      {id:'narmada',name:'Narmada Parikrama',stops:['Amarkantak','Omkareshwar','Jabalpur','Bharuch','Mandla']},
-      {id:'sanatan',name:'Sanatan Circuit',stops:['Ayodhya','Varanasi','Prayagraj','Chitrakoot']}
-    ];
-
-    // populate sparks
-    const sparksGrid = document.getElementById('sparksGrid');
-    function renderSparks(){
-      sparksGrid.innerHTML='';
-      sampleSparks.forEach(s=>{
-        const div = document.createElement('div'); div.className='spark';
-        div.innerHTML = `<h4>${s.title}</h4><div class="meta">${s.place} • ${s.tag}</div><p style="margin:8px 0 0;color:var(--muted)">${s.text}</p><div style="display:flex;gap:8px;margin-top:8px"><button class='ghost' data-id='${s.id}'>Preview</button><button class='btn' data-id='${s.id}'>Use</button></div>`;
-        sparksGrid.appendChild(div);
-      })
-    }
-    renderSparks();
-
-    // populate circuits
-    const circuitsList = document.getElementById('circuitsList');
-    function renderCircuits(){
-      circuitsList.innerHTML='';
-      circuits.forEach(c=>{
-        const el = document.createElement('div'); el.className='item';
-        el.innerHTML = `<div><strong>${c.name}</strong><div class='muted' style='font-size:12px'>${c.stops.slice(0,3).join(' → ')}${c.stops.length>3?' → ...':''}</div></div><div><button class='ghost' data-cid='${c.id}'>Open</button></div>`;
-        circuitsList.appendChild(el);
-      })
-    }
-    renderCircuits();
-
-    // AI Buddy simulation (very simple rule-based demo)
-    const chat = document.getElementById('chat');
-    const userInput = document.getElementById('userInput');
-    document.getElementById('sendBtn').addEventListener('click',askBot);
-    userInput.addEventListener('keypress',e=>{ if(e.key==='Enter') askBot(); });
-
-    function appendMsg(txt, who='bot'){
-      const d = document.createElement('div'); d.className='msg '+(who==='bot'?'bot':'user'); d.textContent=txt; chat.appendChild(d); chat.scrollTop = chat.scrollHeight;
-    }
-
-    function askBot(){
-      const q = userInput.value.trim(); if(!q) return; appendMsg(q,'user'); userInput.value='';
-      // simple keyword rules
-      setTimeout(()=>{
-        const ql = q.toLowerCase();
-        if(ql.includes('omkareshwar')||ql.includes('sarayu')||ql.includes('ayodhya')){
-          appendMsg('Omkareshwar is an island on the Narmada and is considered sacred. Locals cite ancient texts; would you like a 40s Sanatan Spark script or a guided stop-by-stop plan?');
-        } else if(ql.includes('deepawali')||ql.includes('deepotsav')){
-          appendMsg('Dev Deepawali in Varanasi is a major festival on Kartik Purnima. Option: Plan visit, VIP stream, or read about rituals.');
-        } else if(ql.includes('narmada')||ql.includes('parikrama')){
-          appendMsg('Narmada Parikrama is a long, sacred circumambulation. We provide offline packages, waypoints, and local contacts. Want to start yatra mode?');
-        } else if(ql.includes('help')){
-          appendMsg('I can generate Sanatan Sparks, plan circuits, or show local lore. Try: "Generate Spark on Sarayu"');
-        } else {
-          appendMsg('I found some relevant lore. Tip: include a place name (Ayodhya, Varanasi, Mathura) or a festival name for better answers.');
-        }
-      },700);
-    }
-
-    // Generate 40s script (very rough generator for demo)
-    document.getElementById('genSpark').addEventListener('click',()=>{
-      const place = prompt('Enter place for Spark (e.g., Sarayu cave, Omkareshwar):','Sarayu cave');
-      if(!place) return;
-      const hook = `Hook: A hidden corner of ${place} that holds a tale.`;
-      const body = `In forty seconds: ${place} has been a site of devotion where stories of the divine meet the human. Locals speak in whispers of miracles and meanings. Visit with respect; listen, light a lamp, and reflect on what the place asks of you.`;
-      const spark = {title:`Spark — ${place}`,hook,body};
-      sampleSparks.unshift({id:Date.now(),title:spark.title,place,tag:'Local',text:hook+' '+body});
-      renderSparks();
-      alert('Generated a demo Sanatan Spark. Use it as a script for a 40s video.');
-    });
-
-    // Plan Yatra demo
-    document.getElementById('planYatra').addEventListener('click',()=>{
-      alert('Starting demo: Path of Rama packed. Offline package downloaded (demo). Open Circuits -> Path of Rama to view.');
-      // focus circuit
-      document.querySelectorAll('[data-cid]').forEach(btn=>{ if(btn.dataset.cid==='rama') btn.textContent='Open (Downloaded)'; });
-    });
-
-    // download demo data
-    document.getElementById('downloadData').addEventListener('click',()=>{
-      const data = {sparks:sampleSparks,circuits,notes:'demo data'};
-      const blob = new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-      const url = URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='sanatan-demo.json'; a.click(); URL.revokeObjectURL(url);
-    });
-
-    // community post + simple moderation
-    const feed = document.getElementById('feed');
-    function addFeed(post,meta='user'){
-      const e=document.createElement('div'); e.className='item'; e.innerHTML = `<div><strong>${meta}</strong><div class='muted' style='font-size:13px'>${post}</div></div><div class='muted'>${new Date().toLocaleString()}</div>`; feed.prepend(e);
-    }
-
-    const banned = ['violence','attack','slur']; // demo
-    document.getElementById('postBtn').addEventListener('click',()=>{
-      const text = document.getElementById('postText').value.trim(); if(!text) return;
-      const low = text.toLowerCase();
-      if(banned.some(word=>low.includes(word))){
-        alert('Post blocked by AI moderation: contains prohibited content.');
-        addFeed('A post was blocked by moderation (content hidden)','moderation');
-        document.getElementById('postText').value='';
-        return;
-      }
-      addFeed(text,'user'); document.getElementById('postText').value='';
-    });
-
-    // demo clicks for sparks 'Use' and 'Preview'
-    document.addEventListener('click',e=>{
-      if(e.target.matches('.spark .ghost') || e.target.matches('.ghost')){
-        const id = e.target.dataset.id; const s = sampleSparks.find(x=>x.id==id); if(s) alert('Preview:\n\n'+s.text);
-      }
-      if(e.target.matches('.spark .btn') || e.target.matches('.btn')){
-        const id = e.target.dataset.id; const s = sampleSparks.find(x=>x.id==id); if(s) alert('Use this script in your 40s video production:\n\n'+s.text);
-      }
-    });
-
-    // initial feed
-    addFeed('Welcome to the Sanatan Sparks demo. This is a moderated community sample.','system');
-
-  </script>
+  </main>
 </body>
 </html>
-
