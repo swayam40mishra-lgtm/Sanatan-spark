@@ -1,4 +1,4 @@
-function handleClosure() {
+lyricsBox.innerTextfunction handleClosure() {
   // Fade out effect
   document.body.style.transition = "opacity 1s ease";
   document.body.style.opacity = "0";
@@ -25,4 +25,22 @@ function handleClosure() {
     `;
     document.body.style.opacity = "1";
   }, 1000);
+}
+function startLyrics() {
+  const lyrics = [
+    { time: 2, text: "Ja jee le teri zindagi..." },
+    { time: 6, text: "Main teri yaadon mein jee lunga..." },
+    { time: 10, text: "Jo zakhm kare tanne..." },
+    { time: 14, text: "Dil pe ve sil lunga..." },
+    { time: 20, text: "Aaj chhod ke chal padi..." },
+    { time: 25, text: "Phir roya karegi..." }
+  ];
+
+  const lyricsBox = document.getElementById("lyrics");
+
+  lyrics.forEach(line => {
+    setTimeout(() => {
+      lyricsBox.innerText = line.text;
+    }, line.time * 1000);
+  });
 }
