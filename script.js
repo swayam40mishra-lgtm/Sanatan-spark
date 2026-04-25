@@ -1,24 +1,24 @@
-function handleClosure() {
-  const music = document.getElementById("bgMusic");
+function startLyrics() {
+  const lyrics = [
+    "Ja jee le teri zindagi...",
+    "Main teri yaadon mein jee lunga...",
+    "Jo zakhm kare tanne...",
+    "Dil pe ve sil lunga...",
+    "Aaj chhod ke chal padi...",
+    "Phir roya karegi..."
+  ];
 
-  // Start music
-  music.currentTime = 0;
-  music.play();
+  const lyricsBox = document.getElementById("lyrics");
 
-  // Fade out main page
-  document.body.style.transition = "opacity 1s ease";
-  document.body.style.opacity = "0";
+  let i = 0;
 
-  setTimeout(() => {
-    document.body.innerHTML = `
-      <div id="finalScene">
-        <h1 class="end-title">The End</h1>
-        <p id="lyrics"></p>
-      </div>
-    `;
+  function showNext() {
+    if (i < lyrics.length) {
+      lyricsBox.innerText = lyrics[i];
+      i++;
+      setTimeout(showNext, 2500); // timing
+    }
+  }
 
-    document.body.style.opacity = "1";
-
-    startLyrics();
-  }, 1000);
+  showNext();
 }
