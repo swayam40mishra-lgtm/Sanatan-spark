@@ -1,107 +1,166 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>A Chapter Closing</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
+
 <body>
-  <div class="noise"></div>  <main class="wrap">
-    <section class="hero fade-up">
-      <div class="kicker"><span class="dot"></span> An emotional closing page</div>
-      <h1>When a bond stops feeling mutual.</h1>
+
+  <div class="noise"></div>
+
+  <main class="wrap">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="kicker">
+        <span class="dot"></span> An emotional closing page
+      </div>
+
+      <h1 class="title">
+        When a bond stops feeling mutual
+      </h1>
+
       <p class="subtitle">
-        This page carries the truth, the silence, the effort, and the final acceptance.
-        It is written like a closure letter — soft, honest, and unforgettable.
+        This page carries truth, silence, effort, and acceptance —
+        written like a final letter that needed to be said.
       </p>
-    </section><section class="grid">
-  <article class="panel fade-up delay-1">
-    <h2>The message</h2>
-    <p>
-      I trusted you.
-    </p>
-    <p>
-      Not casually… not normally. I trusted you in a way where you slowly became a part of my life —
-      and then without even realising it, you became the centre of it.
-    </p>
-    <p>
-      And maybe that is exactly where I went wrong.
-    </p>
-    <p>
-      Because while I was getting closer, I could feel you going the opposite way.
-    </p>
-    <div class="quote">
-      I noticed your texts. The dryness. The distance. The lack of effort.
-    </div>
-    <p>
-      The things I did for you — the edits, the website, the time I invested — they were never for a “thank you”.
-      They were my way of building something real.
-    </p>
-    <p>
-      But your replies, your behaviour, your consistency kept telling me one thing again and again:
-      this bond does not exist for you the way it does for me.
-    </p>
-  </article>
+    </section>
 
-  <aside class="panel fade-up delay-2">
-    <h2>What I felt</h2>
-    <div class="timeline">
-      <div class="step">
-        <strong>5 days of silence</strong>
-        I stopped myself again and again, fighting the urge to just talk normally.
+    <!-- MESSAGE SECTION -->
+    <section class="section">
+      <div class="panel">
+        <h2>The Message</h2>
+
+        <p>I trusted you.</p>
+
+        <p>
+          Not casually… not normally. You became a part of my life,
+          and slowly — without realising — the centre of it.
+        </p>
+
+        <p>
+          And maybe that is exactly where I went wrong.
+        </p>
+
+        <p>
+          While I was getting closer, I could feel you moving away.
+        </p>
+
+        <div class="quote">
+          I noticed the dryness. The distance. The silence.
+        </div>
+
+        <p>
+          The things I did — the edits, the website, the time —
+          were never for a “thank you”.
+        </p>
+
+        <p>
+          They were my way of building something real.
+        </p>
+
+        <p>
+          But your replies kept saying the same thing:
+          this bond never meant the same to you.
+        </p>
       </div>
-      <div class="step">
-        <strong>Deep attachment</strong>
-        This was never casual for me. I was emotionally invested in a way that was hard to hide.
+    </section>
+
+    <!-- FEELINGS -->
+    <section class="section alt">
+      <div class="panel">
+        <h2>What I Felt</h2>
+
+        <div class="timeline">
+
+          <div class="step">
+            <span>01</span>
+            <p>5 days of silence — holding back every urge to text.</p>
+          </div>
+
+          <div class="step">
+            <span>02</span>
+            <p>Deep attachment — this was never casual for me.</p>
+          </div>
+
+          <div class="step">
+            <span>03</span>
+            <p>One-sided effort — I was carrying everything.</p>
+          </div>
+
+          <div class="step">
+            <span>04</span>
+            <p>Final clarity — one-sided bonds don’t survive.</p>
+          </div>
+
+        </div>
       </div>
-      <div class="step">
-        <strong>One-sided effort</strong>
-        I was the one initiating, holding, trying, and carrying the bond forward.
+    </section>
+
+    <!-- ACCEPTANCE -->
+    <section class="section">
+      <div class="panel narrow">
+        <h2>Acceptance</h2>
+
+        <p>
+          You will never know how difficult these last few days were.
+          Not texting. Not reaching out. Just holding back.
+        </p>
+
+        <p>
+          I saw the pattern clearly —
+          I was trying, you were distant.
+        </p>
+
+        <p>
+          Even when I shared something real,
+          your replies felt… empty.
+        </p>
+
+        <p class="highlight">
+          Maybe I gave more than what you were meant to receive.
+        </p>
+
+        <p>
+          And yes — it will take time to detach,
+          because what I felt was real.
+        </p>
       </div>
-      <div class="step">
-        <strong>Final understanding</strong>
-        One-sided effort, no matter how pure, still ends up nowhere.
+    </section>
+
+    <!-- CLOSING -->
+    <section class="closing">
+      <div class="closing-box">
+
+        <h3>Now finally, our chapter is closing.</h3>
+
+        <p>Take care. And thank you for all the memories.</p>
+
+        <p class="signoff">
+          Singing off with this — <span>Swayam Mishra</span>
+        </p>
+
+        <button class="final-btn" onclick="handleClosure()">
+          Close This Chapter
+        </button>
+
       </div>
-    </div>
-  </aside>
-</section>
-
-<section class="panel fade-up delay-3" style="margin-top:22px;">
-  <h2>Acceptance</h2>
-  <p>
-    You will never know how difficult these last 5 days were for me. Not texting you. Holding back.
-    Keeping myself from reaching out again and again.
-  </p>
-  <p>
-    I saw the pattern clearly: I was the one putting in effort while you kept everything limited.
-    Even when I shared things that mattered to me, your responses felt empty.
-  </p>
-  <p>
-    Maybe I gave more than what you were ever meant to receive.
-    And I know this clearly — it is going to take me time to forget this, to detach from you,
-    because what I felt was real.
-  </p>
-</section>
-
-<section class="closing fade-up delay-4">
-  <h3>Now finally, our chapter is closing.</h3>
-  <p>
-    Take care, and thank you for all your memories.
-  </p>
-  <p style="margin-top:12px; opacity:0.95;">
-    <em>Singing off with this — Swayam Mishra.</em>
-  </p>
-  <div class="signature">— Swayam Mishra</div>
-
-  <button class="final-btn" onclick="handleClosure()">Close This Chapter</button>
-
-  <div class="footer-note">Hover over the signature to reveal the highlighted finish.</div>
-</section>
+    </section>
 
   </main>
+
+  <!-- MUSIC -->
   <video id="bgMusic" preload="auto" playsinline style="display:none">
-  <source src="https://files.catbox.moe/d1g005.mp4" type="video/mp4">
-</video>
+    <source src="https://files.catbox.moe/d1g005.mp4" type="video/mp4">
+  </video>
+
 </body>
 </html>
