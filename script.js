@@ -2,13 +2,15 @@
 function handleClosure() {
   const music = document.getElementById("bgMusic");
 
-  // Play music (user click allows it)
-  music.currentTime = 0;
-  music.play().catch(() => {
-    console.log("Autoplay blocked");
+  // 🔥 Force play (important for mobile + vercel)
+  music.muted = true;   // start muted (browser allows autoplay)
+  music.play().then(() => {
+    music.muted = false;  // unmute after start
+  }).catch(() => {
+    alert("Tap again to start music 🎵");
   });
 
-  // Fade out first page
+  // Fade out page
   document.body.style.transition = "opacity 1s ease";
   document.body.style.opacity = "0";
 
@@ -32,8 +34,7 @@ function handleClosure() {
 }
 
 
-
-// LYRICS FUNCTION (RELIABLE VERSION)
+// LYRICS FUNCTION
 function startLyrics() {
   const lyrics = [
     "Ja jee le teri zindagi...",
@@ -50,7 +51,6 @@ function startLyrics() {
 
   function showNextLine() {
     if (index < lyrics.length) {
-      // Fade effect reset
       lyricsBox.style.opacity = "0";
 
       setTimeout(() => {
