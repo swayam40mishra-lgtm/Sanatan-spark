@@ -1,58 +1,69 @@
 // ================================
-// MAIN BUTTON FUNCTION
+// MAIN BUTTON FUNCTION (CINEMATIC)
 // ================================
 function handleClosure() {
   const music = document.getElementById("bgMusic");
 
-  // 🎵 Start from 1 second
-  music.currentTime = 1;
+  // 🎵 Start from beginning (FIXED)
+  music.currentTime = 0;
 
-  // 🔥 Autoplay fix (mobile + browser)
+  // Autoplay fix
   music.muted = true;
 
   music.play().then(() => {
-    music.muted = false;
+    setTimeout(() => {
+      music.muted = false; // smooth unmute
+    }, 300);
   }).catch(() => {
     alert("Tap again to start music 🎵");
   });
 
-  // Fade out original content
+  // 🎬 Smooth fade-out of page
   const mainContent = document.querySelector(".wrap");
-  mainContent.style.transition = "opacity 1s ease";
+  mainContent.style.transition = "opacity 1.5s ease";
   mainContent.style.opacity = "0";
 
-  // After fade, show final scene
+  // Slight delay → cinematic feel
   setTimeout(() => {
     createFinalScene();
-  }, 1000);
+  }, 1400);
 }
 
 
 
 // ================================
-// CREATE FINAL SCENE (NO DOM DELETE)
+// CREATE FINAL SCENE (CINEMATIC)
 // ================================
 function createFinalScene() {
   const finalScene = document.createElement("div");
   finalScene.id = "finalScene";
 
   finalScene.innerHTML = `
+    <p class="pre-text">Feel the lyrics</p>
     <h1 class="end-title">The End</h1>
     <p id="lyrics"></p>
   `;
 
   document.body.appendChild(finalScene);
 
-  // Start lyrics after slight delay
+  // 🎬 staged reveal
+  setTimeout(() => {
+    document.querySelector(".pre-text").classList.add("show");
+  }, 400);
+
+  setTimeout(() => {
+    document.querySelector(".end-title").classList.add("show");
+  }, 1200);
+
   setTimeout(() => {
     startLyrics();
-  }, 400);
+  }, 2200);
 }
 
 
 
 // ================================
-// LYRICS FUNCTION
+// LYRICS FUNCTION (CINEMATIC FLOW)
 // ================================
 function startLyrics() {
   const lyrics = [
@@ -70,20 +81,21 @@ function startLyrics() {
 
   function showNextLine() {
     if (index < lyrics.length) {
-      // Fade out
+
+      // fade out
       lyricsBox.style.opacity = "0";
 
       setTimeout(() => {
-        // Change text
         lyricsBox.innerText = lyrics[index];
 
-        // Fade in
+        // fade in
         lyricsBox.style.opacity = "1";
 
         index++;
-      }, 300);
+      }, 400);
 
-      setTimeout(showNextLine, 2800);
+      // dynamic timing (feels natural)
+      setTimeout(showNextLine, 3000);
     }
   }
 
